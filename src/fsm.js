@@ -91,7 +91,7 @@ class FSM {
      * @returns {Boolean}
      */
     undo() {
-
+         if(this.initial) return false
     }
 
     /**
@@ -100,7 +100,8 @@ class FSM {
      * @returns {Boolean}
      */
     redo() {
-
+         if(this.initial) return false
+        
     }
 
     /**
