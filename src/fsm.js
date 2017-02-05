@@ -3,30 +3,46 @@ class FSM {
      * Creates new FSM instance.
      * @param config
      */
-    constructor(config) {}
+    constructor(config) {
+    	if(config){
+    	        this.initial = config.initial;
+    	        this.states = config.states;
+    	         this.current = this.initial}
+    	        else throw new Error('lox')
+    }
 
     /**
      * Returns active state.
      * @returns {String}
      */
-    getState() {}
+    getState() {
+        return this.initial;
+    }
 
     /**
      * Goes to specified state.
      * @param state
      */
-    changeState(state) {}
+    changeState(state) {
+    	if(this.states[state])
+       this.initial = state;
+       else throw new Error('lox')
+    }
 
     /**
      * Changes state according to event transition rules.
      * @param event
      */
-    trigger(event) {}
+    trigger(event) {
+
+    }
 
     /**
      * Resets FSM state to initial.
      */
-    reset() {}
+    reset() {
+       // this.constructor(config);
+    }
 
     /**
      * Returns an array of states for which there are specified event transition rules.
@@ -34,26 +50,35 @@ class FSM {
      * @param event
      * @returns {Array}
      */
-    getStates(event) {}
+    getStates(event) {
+
+    }
 
     /**
      * Goes back to previous state.
      * Returns false if undo is not available.
      * @returns {Boolean}
      */
-    undo() {}
+    undo() {
+
+    }
 
     /**
      * Goes redo to state.
      * Returns false if redo is not available.
      * @returns {Boolean}
      */
-    redo() {}
+    redo() {
+
+    }
 
     /**
      * Clears transition history
      */
-    clearHistory() {}
+    clearHistory() {
+
+    }
+
 }
 
 module.exports = FSM;
