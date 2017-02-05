@@ -5,9 +5,8 @@ class FSM {
      */
     constructor(config) {
     	if(config){
-    	        this.initial = config.initial;
-    	        this.states = config.states;
-    	         this.current = this.initial}
+    	       this.current = this.initial = config.initial;
+    	        this.states = config.states;}
     	        else throw new Error('lox')
     }
 
@@ -16,7 +15,7 @@ class FSM {
      * @returns {String}
      */
     getState() {
-        return this.initial;
+        return this.current;
     }
 
     /**
@@ -25,7 +24,7 @@ class FSM {
      */
     changeState(state) {
     	if(this.states[state])
-       this.initial = state;
+       this.current = state;
        else throw new Error('lox')
     }
 
@@ -42,6 +41,7 @@ class FSM {
      */
     reset() {
        // this.constructor(config);
+       this.current = this.initial;
     }
 
     /**
@@ -50,9 +50,25 @@ class FSM {
      * @param event
      * @returns {Array}
      */
-    getStates(event) {
+     getStates(event) {
+     	var result = [];
 
-    }
+     	if(!event){
+     		for(var key in this.states){
+     			result.push(key)
+     		}
+     	}
+     	
+     	if(event){
+     		for(var key in this.states){
+     			for(var prop in this.states[key].transitions){
+     				if(prop == event)
+     					result.push(key)
+     			}
+     		}
+     	}    	
+     	return result;
+     }
 
     /**
      * Goes back to previous state.
@@ -84,3 +100,36 @@ class FSM {
 module.exports = FSM;
 
 /** @Created by Uladzimir Halushka **/
+
+
+const config = {
+    initial: 'normal',
+    states: {
+        normal: {
+            transitions: {
+                study: 'busy',
+            }
+        },
+        busy: {
+            transitions: {
+                get_tired: 'sleeping',
+                get_hungry: 'hungry',
+            }
+        },
+        hungry: {
+            transitions: {
+                eat: 'normal'
+            },
+        },
+        sleeping: {
+            transitions: {
+                get_hungry: 'hungry',
+                get_up: 'normal',
+            },
+        },
+    }
+};
+var fsm = new FSM(config);
+
+fsm.getStates('get_hungry') 
+console.log(fsm)
