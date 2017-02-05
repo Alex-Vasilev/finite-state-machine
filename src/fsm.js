@@ -32,9 +32,24 @@ class FSM {
      * Changes state according to event transition rules.
      * @param event
      */
-    trigger(event) {
-
-    }
+     trigger(event) {
+     	// var bool;
+     	if(event){
+     	     	// bool = false;   	
+     	     		for(var key in this.states){
+     	     			for(var prop in this.states[key].transitions){
+     	     				if(prop == event){
+     	     					this.current = this.states[key].transitions[prop];
+     	     					// bool = true;
+     	     				}
+     	     			}
+     	     		}
+     	     	}
+     	
+     	// if(bool == false)
+     	// 	// console.log('lox')
+     	// 	throw new Error('pidr');
+     }
 
     /**
      * Resets FSM state to initial.
@@ -58,7 +73,7 @@ class FSM {
      			result.push(key)
      		}
      	}
-     	
+
      	if(event){
      		for(var key in this.states){
      			for(var prop in this.states[key].transitions){
@@ -132,4 +147,5 @@ const config = {
 var fsm = new FSM(config);
 
 fsm.getStates('get_hungry') 
+fsm.trigger('study')
 console.log(fsm)
